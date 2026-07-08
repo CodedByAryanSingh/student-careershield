@@ -12,6 +12,10 @@ function Navbar() {
           Home
         </Link>
 
+        <Link to="/dashboard" className="hover:text-cyan-400">
+          Dashboard
+        </Link>
+
         <Link to="/scam-detector" className="hover:text-cyan-400">
           Scam Detector
         </Link>
@@ -26,10 +30,10 @@ function Navbar() {
       </div>
 
       <Link
-        to="/scam-detector"
+        to="/dashboard"
         className="rounded-full bg-cyan-400 px-5 py-2 font-semibold text-slate-950 hover:bg-cyan-300"
       >
-        Get Started
+        Dashboard
       </Link>
     </nav>
   )
