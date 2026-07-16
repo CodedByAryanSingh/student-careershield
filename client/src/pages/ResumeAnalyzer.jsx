@@ -1,222 +1,46 @@
 import { useState } from "react"
 import Navbar from "../components/Navbar"
+import Footer from "../components/Footer"
+import Icon from "../components/Icon"
+import { api } from "../lib/api"
+
+const sampleResume = `Aarav Mehta | aarav@email.com | linkedin.com/in/aarav | github.com/aarav\n\nEDUCATION\nB.Tech Computer Science, National Institute of Technology\n\nSKILLS\nJavaScript, React, TypeScript, HTML, CSS, REST API, Git, Figma\n\nPROJECTS\nBuilt a responsive student marketplace in React used by 400+ students. Improved page performance by 38% through code splitting and image optimization.\n\nEXPERIENCE\nDeveloped reusable UI components and implemented API integrations for a campus product. Collaborated with 4 designers and engineers to launch features on schedule.`
 
 function ResumeAnalyzer() {
-  const [resumeText, setResumeText] = useState("")
   const [targetRole, setTargetRole] = useState("")
+  const [resumeText, setResumeText] = useState("")
   const [result, setResult] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
 
-  function analyzeResume(event) {
-    event.preventDefault()
-
-    const text = resumeText.toLowerCase()
-    let score = 0
-    const strengths = []
-    const improvements = []
-
-    if (text.includes("email") || text.includes("@")) {
-      score += 10
-      strengths.push("Contact email found.")
-    } else {
-      improvements.push("Add a professional email address.")
-    }
-
-    if (text.includes("education") || text.includes("b.tech") || text.includes("degree")) {
-      score += 10
-      strengths.push("Education section found.")
-    } else {
-      improvements.push("Add an Education section.")
-    }
-
-    if (text.includes("skills")) {
-      score += 15
-      strengths.push("Skills section found.")
-    } else {
-      improvements.push("Add a clear Skills section.")
-    }
-
-    if (text.includes("project") || text.includes("projects")) {
-      score += 20
-      strengths.push("Project section found.")
-    } else {
-      improvements.push("Add at least 2 strong projects with links.")
-    }
-
-    if (text.includes("github") || text.includes("linkedin")) {
-      score += 10
-      strengths.push("GitHub or LinkedIn link found.")
-    } else {
-      improvements.push("Add GitHub and LinkedIn profile links.")
-    }
-
-    if (
-      text.includes("developed") ||
-      text.includes("built") ||
-      text.includes("created") ||
-      text.includes("designed") ||
-      text.includes("implemented")
-    ) {
-      score += 15
-      strengths.push("Action words found in resume.")
-    } else {
-      improvements.push("Use strong action words like Built, Developed, Designed, Implemented.")
-    }
-
-    if (resumeText.length > 500) {
-      score += 10
-      strengths.push("Resume has enough content for basic analysis.")
-    } else {
-      improvements.push("Resume content looks too short. Add more details about projects and skills.")
-    }
-
-    if (targetRole.trim()) {
-      const roleWords = targetRole.toLowerCase().split(" ")
-      const matchedWords = roleWords.filter((word) => text.includes(word))
-
-      if (matchedWords.length > 0) {
-        score += 10
-        strengths.push(`Resume matches some target role keywords: ${matchedWords.join(", ")}.`)
-      } else {
-        improvements.push("Add more keywords related to your target role.")
-      }
-    }
-
-    const finalScore = Math.min(score, 100)
-
-    let level = "Needs Improvement"
-    let color = "text-red-300"
-
-    if (finalScore >= 75) {
-      level = "Strong Resume"
-      color = "text-emerald-300"
-    } else if (finalScore >= 50) {
-      level = "Good, But Can Improve"
-      color = "text-yellow-300"
-    }
-
-    setResult({
-      score: finalScore,
-      level,
-      color,
-      strengths,
-      improvements,
-    })
+  async function submit(event) {
+    event.preventDefault(); setLoading(true); setError("")
+    try { setResult(await api.analyzeResume({ targetRole, resumeText })) } catch (err) { setError(err.message) } finally { setLoading(false) }
   }
 
   return (
-    <main className="min-h-screen bg-[#08111f] text-white">
-      <Navbar />
-
-      <section className="mx-auto max-w-6xl px-6 py-10">
-        <div className="mb-10">
-          <p className="mb-3 inline-block rounded-full border border-purple-400/30 bg-purple-400/10 px-4 py-2 text-sm text-purple-300">
-            Resume Analyzer
-          </p>
-
-          <h1 className="text-4xl font-bold text-purple-300">
-            Analyze your resume strength
-          </h1>
-
-          <p className="mt-4 max-w-2xl text-gray-300">
-            Paste your resume content below. Student CareerShield will check contact
-            details, education, skills, projects, links, action words, and target role match.
-          </p>
-        </div>
-
-        <div className="grid gap-8 lg:grid-cols-2">
-          <form
-            onSubmit={analyzeResume}
-            className="rounded-2xl border border-white/10 bg-white/5 p-6"
-          >
-            <div className="mb-4">
-              <label className="mb-2 block text-sm text-gray-300">
-                Target Role
-              </label>
-              <input
-                type="text"
-                value={targetRole}
-                onChange={(event) => setTargetRole(event.target.value)}
-                placeholder="Example: Frontend Developer Intern"
-                className="w-full rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white outline-none focus:border-purple-400"
-              />
-            </div>
-
-            <div className="mb-5">
-              <label className="mb-2 block text-sm text-gray-300">
-                Paste Resume Text
-              </label>
-              <textarea
-                value={resumeText}
-                onChange={(event) => setResumeText(event.target.value)}
-                rows="14"
-                placeholder="Paste your resume text here..."
-                className="w-full resize-none rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-white outline-none focus:border-purple-400"
-              ></textarea>
-            </div>
-
-            <button className="w-full rounded-xl bg-purple-400 px-6 py-3 font-bold text-slate-950 hover:bg-purple-300">
-              Analyze Resume
-            </button>
-          </form>
-
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-            <h2 className="text-2xl font-bold">Resume Result</h2>
-
-            {!result ? (
-              <p className="mt-4 text-gray-300">
-                Paste your resume and click Analyze Resume. Your score and suggestions
-                will appear here.
-              </p>
-            ) : (
-              <div className="mt-6">
-                <div className="rounded-2xl border border-white/10 bg-slate-950 p-6">
-                  <p className="text-sm text-gray-400">Resume Score</p>
-                  <h3 className={`mt-2 text-5xl font-extrabold ${result.color}`}>
-                    {result.score}/100
-                  </h3>
-                  <p className={`mt-2 text-xl font-bold ${result.color}`}>
-                    {result.level}
-                  </p>
-                </div>
-
-                <div className="mt-6">
-                  <h3 className="mb-3 text-lg font-bold text-emerald-300">
-                    Strengths
-                  </h3>
-
-                  <ul className="space-y-3">
-                    {result.strengths.map((item, index) => (
-                      <li
-                        key={index}
-                        className="rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-gray-300"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="mt-6">
-                  <h3 className="mb-3 text-lg font-bold text-yellow-300">
-                    Improvements
-                  </h3>
-
-                  <ul className="space-y-3">
-                    {result.improvements.map((item, index) => (
-                      <li
-                        key={index}
-                        className="rounded-xl border border-white/10 bg-slate-950 px-4 py-3 text-gray-300"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            )}
+    <main className="app-page resume-page"><Navbar />
+      <section className="page-intro container"><div><div className="eyebrow violet"><Icon name="sparkles" size={16}/> Role-fit resume review</div><h1>Make your resume <em>earn</em> the interview.</h1><p>Get a fast, role-specific review of structure, evidence, keywords, and recruiter readability.</p></div><div className="intro-note"><Icon name="file"/><div><strong>ATS-minded feedback</strong><span>Built around the signals early-career recruiters scan first.</span></div></div></section>
+      <section className="workspace-grid container">
+        <form className="workspace-panel form-panel" onSubmit={submit}>
+          <div className="panel-heading"><div><span className="step-number violet-bg">01</span><div><h2>Your resume</h2><p>Paste plain text for the cleanest analysis.</p></div></div><button type="button" className="sample-button" onClick={() => { setTargetRole("Frontend Developer Intern"); setResumeText(sampleResume) }}>Load example</button></div>
+          <div className="form-grid single">
+            <label><span>Target role *</span><div className="input-with-icon"><Icon name="target" size={18}/><input required value={targetRole} onChange={(e) => setTargetRole(e.target.value)} placeholder="e.g. Frontend Developer Intern"/></div></label>
+            <label><span>Resume text *</span><textarea required rows="17" value={resumeText} onChange={(e) => setResumeText(e.target.value)} placeholder="Paste your resume text here…"/><small>{resumeText.trim() ? resumeText.trim().split(/\s+/).length : 0} words</small></label>
           </div>
-        </div>
-      </section>
+          {error && <div className="form-error"><Icon name="warning" size={18}/>{error}</div>}
+          <button className="button button-violet submit-button" disabled={loading}>{loading ? <><span className="spinner"/> Reviewing resume…</> : <>Review my resume <Icon name="arrow"/></>}</button>
+        </form>
+        <aside className={`workspace-panel result-panel ${result ? "has-result" : ""}`}>
+          {!result ? <div className="empty-result resume-empty"><div className="document-preview"><span/><span/><span/><span/><Icon name="file" size={35}/></div><span className="kicker">ROLE-SPECIFIC, NOT GENERIC</span><h2>A clearer path to a stronger draft.</h2><p>Your score, matched skills, and highest-impact edits will appear here.</p></div> : <div className="result-content">
+            <div className="resume-score"><div><span>Resume score</span><strong>{result.score}<small>/100</small></strong><em>{result.level}</em></div><div className="score-bars">{[1,2,3,4,5].map((bar) => <i key={bar} className={result.score >= bar * 20 - 10 ? "filled" : ""}/>)}</div><p>{result.summary}</p></div>
+            <div className="metric-row"><div><span>Keyword match</span><strong>{result.keywordScore}%</strong></div><div><span>Word count</span><strong>{result.wordCount}</strong></div><div><span>Strengths</span><strong>{result.strengths.length}</strong></div></div>
+            <div className="result-section"><h3>Matched role keywords <span>{result.matchedKeywords.length}</span></h3><div className="keyword-cloud">{result.matchedKeywords.map((word) => <span className="matched" key={word}><Icon name="check" size={13}/>{word}</span>)}{result.missingKeywords.slice(0, 5).map((word) => <span key={word}>+ {word}</span>)}</div></div>
+            <div className="result-section"><h3>Highest-impact edits</h3>{result.improvements.map((item, index) => <div className="improvement-item" key={item}><span>{index + 1}</span><p>{item}</p></div>)}</div>
+            <div className="safe-row strengths-row">{result.strengths.slice(0, 4).map((item) => <span key={item}><Icon name="check" size={15}/>{item}</span>)}</div>
+          </div>}
+        </aside>
+      </section><Footer />
     </main>
   )
 }

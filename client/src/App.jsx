@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router"
+import { BrowserRouter, Routes, Route, Navigate } from "react-router"
 import Home from "./pages/Home"
 import Dashboard from "./pages/Dashboard"
 import ScamDetector from "./pages/ScamDetector"
@@ -14,6 +14,7 @@ function App() {
         <Route path="/scam-detector" element={<ScamDetector />} />
         <Route path="/resume-analyzer" element={<ResumeAnalyzer />} />
         <Route path="/application-tracker" element={<ApplicationTracker />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   )

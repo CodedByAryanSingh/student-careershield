@@ -1,0 +1,38 @@
+[
+  {
+    "id": "demo-1",
+    "company": "Nova Labs",
+    "role": "Product Design Intern",
+    "date": "2026-07-12",
+    "deadline": "2026-07-25",
+    "status": "Interview",
+    "resumeVersion": "Product v3",
+    "scamScore": 8,
+    "notes": "Portfolio review with the design lead.",
+    "createdAt": "2026-07-12T09:30:00.000Z"
+  },
+  {
+    "id": "demo-2",
+    "company": "PixelWorks",
+    "role": "Frontend Engineering Intern",
+    "date": "2026-07-10",
+    "deadline": "2026-07-22",
+    "status": "Shortlisted",
+    "resumeVersion": "Frontend v2",
+    "scamScore": 14,
+    "notes": "Complete take-home before Friday.",
+    "createdAt": "2026-07-10T11:00:00.000Z"
+  },
+  {
+    "id": "demo-3",
+    "company": "BrightPath Careers",
+    "role": "Marketing Intern",
+    "date": "2026-07-08",
+    "deadline": "2026-07-18",
+    "status": "Suspicious",
+    "resumeVersion": "General v1",
+    "scamScore": 84,
+    "notes": "Asked for an upfront training fee. Do not proceed.",
+    "createdAt": "2026-07-08T08:15:00.000Z"
+  }
+]

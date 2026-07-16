@@ -1,41 +1,33 @@
-import { Link } from "react-router"
+import { useState } from "react"
+import { Link, NavLink } from "react-router"
+import Icon from "./Icon"
 
 function Navbar() {
+  const [open, setOpen] = useState(false)
+  const links = [
+    ["/dashboard", "Overview"],
+    ["/scam-detector", "Verify a role"],
+    ["/resume-analyzer", "Resume check"],
+    ["/application-tracker", "Applications"],
+  ]
+
   return (
-    <nav className="flex items-center justify-between px-8 py-6">
-      <Link to="/" className="text-2xl font-bold">
-        Student <span className="text-cyan-400">CareerShield</span>
-      </Link>
-
-      <div className="hidden gap-6 text-sm text-gray-300 md:flex">
-        <Link to="/" className="hover:text-cyan-400">
-          Home
+    <header className="site-header">
+      <nav className="nav-shell" aria-label="Main navigation">
+        <Link to="/" className="brand" onClick={() => setOpen(false)}>
+          <span className="brand-mark"><Icon name="shield" size={21} /></span>
+          <span>Career<span>Shield</span></span>
         </Link>
-
-        <Link to="/dashboard" className="hover:text-cyan-400">
-          Dashboard
-        </Link>
-
-        <Link to="/scam-detector" className="hover:text-cyan-400">
-          Scam Detector
-        </Link>
-
-        <Link to="/resume-analyzer" className="hover:text-cyan-400">
-          Resume Analyzer
-        </Link>
-
-        <Link to="/application-tracker" className="hover:text-cyan-400">
-          Tracker
-        </Link>
-      </div>
-
-      <Link
-        to="/dashboard"
-        className="rounded-full bg-cyan-400 px-5 py-2 font-semibold text-slate-950 hover:bg-cyan-300"
-      >
-        Dashboard
-      </Link>
-    </nav>
+        <div className={`nav-links ${open ? "is-open" : ""}`}>
+          {links.map(([to, label]) => (
+            <NavLink key={to} to={to} onClick={() => setOpen(false)} className={({ isActive }) => isActive ? "active" : ""}>{label}</NavLink>
+          ))}
+          <Link className="mobile-nav-cta" to="/scam-detector">Check an offer <Icon name="arrow" size={17} /></Link>
+        </div>
+        <Link className="nav-cta" to="/scam-detector">Check an offer <Icon name="arrow" size={17} /></Link>
+        <button className="menu-button" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Toggle navigation"><Icon name={open ? "close" : "menu"} /></button>
+      </nav>
+    </header>
   )
 }
 
