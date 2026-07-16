@@ -162,11 +162,17 @@ function analyzeResume(input) {
 
   const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0
   if (wordCount >= 180 && wordCount <= 850) score += 6
-  else improvements.push(wordCount < 180 ? "Add more evidence—your resume is currently very brief" : "Tighten the resume to the most relevant experience")
+  else if (wordCount < 180) {
+    score -= 18
+    improvements.push("Add more evidence—your resume is currently very brief")
+  } else {
+    score -= 8
+    improvements.push("Tighten the resume to the most relevant experience")
+  }
 
   const keywordScore = Math.round((matchedKeywords.length / keywords.length) * 100)
   score += Math.round(keywordScore * 0.12)
-  score = Math.min(100, Math.round(score))
+  score = Math.max(0, Math.min(96, Math.round(score)))
 
   return {
     id: randomUUID(),
