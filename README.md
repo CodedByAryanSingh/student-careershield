@@ -32,3 +32,28 @@ The Node server serves the production client and API from `http://localhost:8787
 - `DELETE /api/applications/:id`
 
 Application data is persisted to `server/data/applications.json`. The included records are starter demo data and can be edited or removed in the app.
+Live project section
+## Live Demo
+
+[View Student CareerShield](https://student-careershield.netlify.app/)
+Technologies
+## Technologies Used
+
+### Frontend
+- React
+- Vite
+- Tailwind CSS
+- JavaScript
+
+### Backend
+- Node.js
+- Express.js
+- REST API
+
+### Database
+- PostgreSQL
+
+### Tools and Deployment
+- Git
+- GitHub
+- Netlify
