@@ -28,7 +28,8 @@ AI-powered career safety and application management platform built for students 
 
 <br /><br />
 
-<img src="https://raw.githubusercontent.com/CodedByAryanSingh/student-careershield/main/screenshots/hero.png" alt="Student CareerShield" width="900" />
+<img width="1440" height="808" alt="Screenshot 2026-09-25 at 9 31 23 PM" src="https://github.com/user-attachments/assets/1aa180b6-5c7f-49ce-853b-0cb03b2f41c8" />
+" alt="Student CareerShield" width="900" />
 
 </div>
 
@@ -155,11 +156,12 @@ Bring safety checks, resume analysis, and applications together in one workflow.
 
 # 🖥️ Product Preview
 
-## Dashboard
+## Overview
 
 <div align="center">
 
-<img src="./screenshots/dashboard.png" alt="CareerShield Dashboard" width="900" />
+<img width="1440" height="810" alt="Screenshot 2026-09-25 at 9 25 33 PM" src="https://github.com/user-attachments/assets/b17f90f2-6ec5-44fd-9b40-11707b64c459" />
+/>
 
 </div>
 
@@ -171,7 +173,7 @@ Bring safety checks, resume analysis, and applications together in one workflow.
 
 <div align="center">
 
-<img src="./screenshots/scam-analysis.png" alt="Scam Detection" width="900" />
+<img width="1439" height="812" alt="Screenshot 2026-09-25 at 9 25 48 PM" src="https://github.com/user-attachments/assets/67562baf-fd64-4984-bc33-6721c23a5b78" />
 
 </div>
 
@@ -183,7 +185,7 @@ Bring safety checks, resume analysis, and applications together in one workflow.
 
 <div align="center">
 
-<img src="./screenshots/resume-analysis.png" alt="Resume Analysis" width="900" />
+<img width="1439" height="810" alt="Screenshot 2026-09-25 at 9 25 57 PM" src="https://github.com/user-attachments/assets/b369622d-e4f7-4c80-ab41-440b72404d0d" />
 
 </div>
 
@@ -195,7 +197,8 @@ Bring safety checks, resume analysis, and applications together in one workflow.
 
 <div align="center">
 
-<img src="./screenshots/application-tracker.png" alt="Application Tracker" width="900" />
+<img width="1438" height="807" alt="Screenshot 2026-09-25 at 9 26 08 PM" src="https://github.com/user-attachments/assets/ee146503-1301-4223-95f4-336187ddc09b" />
+
 
 </div>
 
